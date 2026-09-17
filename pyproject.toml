@@ -1,0 +1,110 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cogspace"
+version = "0.1.0"
+description = "CogSpace: Unleashing Spatial Intelligence in MLLMs via Decoupled Cognitive Agent"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "CogSpace Team" },
+]
+keywords = ["spatial-reasoning", "3d-understanding", "mllm", "agent", "cognitive"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intelligent Science :: Spatial Reasoning",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# ── Core runtime dependencies (auto-extracted by pipreqs, version-pinned) ──
+dependencies = [
+    # --- Scientific computing ---
+    "numpy>=1.24.0",
+
+    # --- Deep learning (breaking changes across majors) ---
+    "torch>=2.10.0",
+    "torchvision>=0.25.0",
+    "xformers",                      # memory-efficient attention (inference acceleration)
+
+    # --- Computer vision ---
+    "opencv-python>=4.13.0",
+    "opencv-python-headless>=4.13.0",  # headless CV backend
+    "Pillow",
+
+    # --- LLM / VLM API (fast-evving API) ---
+    "openai>=2.33.0",
+
+    # --- Transformer models (SAM3 segmentation, breaking model APIs) ---
+    "transformers>=5.1.0",
+
+    # --- Model hub ---
+    "huggingface_hub>=1.13.0",       # hf_hub_download for Orient-Anything-V2 ckpt
+
+    # --- Orientation estimation (Orient-Anything-V2) ---
+    "scipy>=1.10.0",
+    "einops>=0.7.0",
+    "timm>=0.9.0",
+
+    # --- 3D geometry ---
+    "plyfile>=0.9.0",
+
+    # --- Config & misc ---
+    "omegaconf",                     # hydra-style config (OriAnyV2)
+    "lightning>=2.2.0",              # PyTorch Lightning (pi3 training/inference)
+    "matplotlib",                    # visualization
+    "pandas",                        # data processing
+    "tqdm",                          # progress bars
+]
+
+[project.optional-dependencies]
+# ── Serving / orchestration stack ─────────────────────────────────────────
+# Install with:  pip install -e ".[serve]"
+serve = [
+    # Ray + Ray Serve (GPU model deployments)
+    "ray[serve]>=2.9.0",
+    # LangGraph state-machine orchestration
+    "langgraph>=0.1.0",
+    "langchain-core>=0.2.0",
+    # Background removal (Orient-Anything-V2 app_utils)
+    "rembg",
+    # Gradio demo UI (Orient-Anything-V2-main/app.py)
+    "gradio",
+    # Blender Python API (axis_renderer.py, requires Blender environment)
+    "bpy",
+]
+
+# ── Local LLM via vLLM ───────────────────────────────────────────────────
+# Only needed when LLM_MODE=local.  Install with:  pip install -e ".[vllm]"
+vllm = [
+    "vllm>=0.4.0",
+    "starlette>=0.27.0",   # used by serve_vllm.py Ray-actor mode
+]
+
+
+[tool.setuptools.packages.find]
+include = ["*", "pi3*", "Orient-Anything-V2-main*"]
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 120
+
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B"]
+ignore = ["E501"]   # line-too-long (black handles formatting)
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

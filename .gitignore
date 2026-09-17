@@ -1,0 +1,62 @@
+# ── Build / cache ────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────────
+.venv/
+venv/
+env/
+.conda/
+
+# ── Secrets — never commit API keys ──────────────────────────
+.env
+.env.*
+*.key
+secrets.yaml
+
+# ── Model checkpoints ─────────────────────────────────────────
+ckpt/**
+!ckpt/.gitkeep
+
+# ── Pipeline outputs (large, generated files) ─────────────────
+output/
+recon/
+sampled_frames/
+
+# ── Binary / large data files ─────────────────────────────────
+*.npz
+*.ply
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.avi
+*.pkl
+*.npy
+*.zip
+
+# ── IDEs / editors ────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS noise ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Ray / vLLM runtime ────────────────────────────────────────
+/tmp/ray/
+ray_results/
