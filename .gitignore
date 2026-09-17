@@ -21,14 +21,7 @@ env/
 *.key
 secrets.yaml
 
-# ── Model checkpoints ─────────────────────────────────────────
-ckpt/**
-!ckpt/.gitkeep
 
-# ── Pipeline outputs (large, generated files) ─────────────────
-output/
-recon/
-sampled_frames/
 
 # ── Binary / large data files ─────────────────────────────────
 *.npz
@@ -37,14 +30,10 @@ sampled_frames/
 *.pth
 *.safetensors
 *.bin
-*.jpg
-*.jpeg
-*.png
 *.mp4
 *.avi
 *.pkl
 *.npy
-*.zip
 
 # ── IDEs / editors ────────────────────────────────────────────
 .vscode/
